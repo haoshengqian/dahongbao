@@ -637,7 +637,7 @@
 
     <script>
         var $copyBtn = $('.J_copy');
-        var getQrCodeUrl = 'http://test/test?jsoncallback=?';
+        var getQrCodeUrl = 'http://wxfl.fanli.com/h5/invite/detail?jsoncallback=?';
 
         var params = (function(){
             var _params = {};
@@ -680,10 +680,10 @@
 
         function getQrCode(code) {
             $.getJSON(getQrCodeUrl, {code: code}, function(res){
-                if(res.status == 1){
-                    $('.J_header_pic').attr('src', res.data.pic_header);
-                    $('.J_footer_pic').attr('src', res.data.pic_footer);
-                    $('.J_red').text(res.data.red);
+                if(res.code == 0){
+                    $('.J_header_pic').attr('src', res.data.qrcode_banner);
+                    $('.J_footer_pic').attr('src', res.data.qrcode_bottom);
+                    $('.J_red').text(res.data.redpacket);
                 }
             });
         }
