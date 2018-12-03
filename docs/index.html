@@ -569,6 +569,15 @@
             left: 0;
             bottom: 0;
         }
+        .head-qrcode{
+            position: absolute;
+            width: 2.86rem;
+            height: 2.86rem;
+            left: 50%;
+            bottom: 2.33rem;
+            -webkit-transform: translate(-50%);
+            transform: translate(-50%);
+        }
         .head-text{
             line-height: 0.4rem;
             margin: 0.1rem auto 0.2rem;
@@ -615,7 +624,8 @@
         }
     </style>
         <div class="img-box">
-            <img class="w100 J_header_pic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=" alt="">
+            <img class="w100" src="http://static2.51fanli.net/robot/images/red/header-bg.png" alt="">
+            <img class="head-qrcode J_qrcode_pic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=" alt="">
             <div class="head-box">
                 <p class="head-text">长按二维码添加我为好友<br>将红包码发给我领取<span class="J_red">00</span>元红包</p>
                 <div class="red-code-box flex">
@@ -628,7 +638,7 @@
         <img class="w100" src="http://static2.51fanli.net/robot/images/red/body-1.png" alt="">
         <img class="w100" src="http://static2.51fanli.net/robot/images/red/body-2.png" alt="">
         <div class="footer-box">
-            <img class="w100 J_footer_pic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=" alt="">
+            <img class="w100 J_qrcode_pic" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=" alt="">
             <p class="footer-tips">长按二维码添加我哦</p>
         </div>
 
@@ -681,8 +691,7 @@
         function getQrCode(code) {
             $.getJSON(getQrCodeUrl, {code: code}, function(res){
                 if(res.code == 0){
-                    $('.J_header_pic').attr('src', res.data.qrcode_banner);
-                    $('.J_footer_pic').attr('src', res.data.qrcode_bottom);
+                    $('.J_qrcode_pic').attr('src', res.data.qrcode);
                     $('.J_red').text(res.data.redpacket);
                 }
             });
