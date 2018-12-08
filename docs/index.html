@@ -644,6 +644,7 @@
 
     <!-- zepto无需上传，快站外层默认引入zepto，有全局$可用 -->
     <script src="https://kzcdn.itc.cn/res/skin/js/zepto.min.js?v=5.0"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
 
     <script>
         var $copyBtn = $('.J_copy');
@@ -675,7 +676,7 @@
                 e.clearSelection();
                 copyTimer = setTimeout(function(){
                     $copyBtn.text('复制红包码');
-                }, 2500);
+                }, 4000);
             })
         }
 
@@ -696,7 +697,63 @@
                 }
             });
         }
+    </script>
 
+    <script>
+        var isFromWeixin = navigator.userAgent.toLowerCase().indexOf("micromessenger") > -1;
+        var getWxConfigUrl = 'https://wxfl.fanli.com/h5/invite/getWxConfig';
+
+        wxConfig();
+
+        function wxConfig(){
+            if(!isFromWeixin) return;
+
+            $.ajax({
+                url: getWxConfigUrl,
+                async: false,
+                dataType: 'json',
+                data: {
+                    sign_url: location.href.split('#')[0]
+                },
+                success: function(res){
+                    if(res.code == 0){
+                        initWxShare(res.data.wxConfig);
+                    }
+                }
+            })
+        }
+
+        function initWxShare(wxConfig){
+            if(!wxConfig) return;
+
+            wx.config({
+                debug: false,
+                appId: wxConfig.appId,
+                timestamp: wxConfig.timestamp,
+                nonceStr: wxConfig.nonceStr,
+                signature: wxConfig.signature,
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage']
+            });
+
+            wx.error(function(res){
+                console.log(res)
+            });
+
+            wx.ready(function(){
+                wx.onMenuShareAppMessage({
+                    title: '加“淘宝返利助手”为好友，领取10元微信红包',
+                    desc: '将淘宝商品分享给它，能领到淘宝独家大额优惠券，还能有返利！',
+                    link: location.href,
+                    imgUrl: 'https://l0.51fanli.net/ppclick/images/2018/12/07/98bb710097b4c397293d0c2959995394.jpg',
+                    success: function(res) {
+
+                    },
+                    fail: function(res) {
+
+                    }
+                });
+            })
+        }
     </script>
 
 </body>
