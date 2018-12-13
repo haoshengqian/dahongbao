@@ -685,12 +685,12 @@
             if(_code) {
                 $('.J_red_code').text(_code);
                 document.querySelector('.J_copy').setAttribute('data-clipboard-text', _code);
-                getQrCode(_code);
+                getQrCode();
             }
         }
 
-        function getQrCode(code) {
-            $.getJSON(getQrCodeUrl, {code: code}, function(res){
+        function getQrCode() {
+            $.getJSON(getQrCodeUrl, params, function(res){
                 if(res.code == 0){
                     $('.J_qrcode_pic').attr('src', res.data.qrcode);
                     $('.J_red').text(res.data.redpacket);
